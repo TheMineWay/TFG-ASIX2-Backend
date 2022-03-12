@@ -96,7 +96,7 @@
     $orderBy = $opts["orderBy"];
     $order = $opts["order"];
     
-    $que = "SELECT $fields FROM $virtual$tableName $where $orderBy $orderByDesc $order $limit;";
+    $que = "SELECT $fields FROM $virtual$tableName $where $orderBy $order $limit;";
 
     $result = query($que);
     
@@ -107,8 +107,8 @@
     ];
   }
 
-  function insert(string $table, array $content, $fields = null) {
-    $columns = $fields == null ? implode(array_map(function($v) { return "$v";}, columns($table)),", ") : implode($fields, ',').", createdAt, updatedAt, deletedAt";
+  function insert(string $table, array $content, array $fields = null) {
+    $columns = $fields == null ? implode(", ", array_map(function($v) { return "$v";}, columns($table))) : implode(",", $fields).", createdAt, updatedAt, deletedAt";
 
     $content = array_map(function($arr) {
       return array_map(function($fil) {
@@ -116,11 +116,11 @@
       }, $arr);
     }, $content);
 
-    $values = implode(array_map(function($row) {
-      return "(".implode(array_map(function ($cell) {
+    $values = implode(",", array_map(function($row) {
+      return "(".implode(", ", array_map(function ($cell) {
         return $cell == null ? "NULL" : $cell;
-      }, $row), ", ").",SYSDATE(), SYSDATE(), NULL)";
-    }, $content), ",");
+      }, $row)).",SYSDATE(), SYSDATE(), NULL)";
+    }, $content));
     
     $baseQ = "INSERT INTO $table ($columns) VALUES $values;";
     $result = query($baseQ, false);
