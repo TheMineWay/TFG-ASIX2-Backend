@@ -1,0 +1,38 @@
+<?php
+  include('../bbdd/bbdd.php');
+  include('../utils/error.php');
+  include('../utils/crypto.php');
+  include('../utils/uuid.php');
+  include('../utils/requests.php');
+
+  $request = request();
+
+  $post = $request["post"];
+
+  // DEBUG VALUES
+  $login = "admin" ?? sanitize($post["login"]);
+  $password = "password" ?? sanitize($post["password"]);
+  
+  $user = select("users", [
+    "where"=>"login = \"$login\"",
+    "limit"=>1
+  ])["data"][0];
+
+  if($user == null) {
+    throwHttpError("404","auth"); // ❌: User not found
+  }
+
+  if(!compareHash($password, $user["password"])) {
+    throwHttpError("403","auth"); // ❌: Wrong password
+  }
+
+  // ✅: Nice user auth
+
+  $sessionId = uuid("sessions","id");
+  $result = insert("sessions", [[$sessionId, $user["id"], ["DATE_ADD(SYSDATE(), INTERVAL 1 DAY)"], $request["ip"]]], ["id","user","expiresAt","ip"]);
+  if(!$result) {
+    error500(); // ❌: Internal error
+  }  
+
+  answer(["token"=>$sessionId]); // ✅: Give access token
+?>
