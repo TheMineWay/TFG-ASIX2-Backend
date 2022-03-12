@@ -1,4 +1,5 @@
 <?php
+  include('../utils/cors.php');
   include('../bbdd/bbdd.php');
   include('../utils/error.php');
   include('../utils/crypto.php');
@@ -7,16 +8,16 @@
 
   $request = request();
 
-  $post = $request["post"];
+  $data = $request["data"];
 
   // DEBUG VALUES
-  $login = "admin" ?? sanitize($post["login"]);
-  $password = "password" ?? sanitize($post["password"]);
+  $login = sanitize($data["login"], "");
+  $password = sanitize($data["password"], "");
   
   $user = select("users", [
     "where"=>"login = \"$login\"",
     "limit"=>1
-  ])["data"][0];
+  ])["data"][0] ?? null;
 
   if($user == null) {
     throwHttpError("404","auth"); // ❌: User not found

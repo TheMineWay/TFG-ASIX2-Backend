@@ -3,12 +3,14 @@
     $server = $_SERVER;
 
     $ip = $server['REMOTE_ADDR'];
-    $post = $_POST;
+    $post = json_decode(file_get_contents('php://input'), true);
+    $data = $post["data"];
   
   
     return [
       "ip"=>$ip,
-      "post"=>$post
+      "post"=>$post,
+      "data"=>$data
     ];
   }
 

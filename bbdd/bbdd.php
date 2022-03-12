@@ -14,11 +14,11 @@
     return $rows;
   }
 
-  function sanitize($text) {
+  function sanitize($text, $envolve = "\"") {
     if(is_array($text)) {
       return $text[0];
     }
-    return '"'.str_replace("\"","\"\"",$text).'"';
+    return "$envolve".str_replace("\"","\"\"",$text)."$envolve";
   }
 
   function columns($tableName) {
