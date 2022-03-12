@@ -5,6 +5,7 @@
   include('../utils/crypto.php');
   include('../utils/uuid.php');
   include('../utils/requests.php');
+  include('../utils/lodash.php');
 
   $request = request();
 
@@ -30,10 +31,18 @@
   // ✅: Nice user auth
 
   $sessionId = uuid("sessions","id");
-  $result = insert("sessions", [[$sessionId, $user["id"], ["DATE_ADD(SYSDATE(), INTERVAL 1 DAY)"], $request["ip"]]], ["id","user","expiresAt","ip"]);
+  $expiresAt = new Datetime("tomorrow");
+  $expiresAt = $expiresAt->format('Y-m-d H:i:s');
+
+  $result = insert("sessions", [[$sessionId, $user["id"], $expiresAt, $request["ip"]]], ["id","user","expiresAt","ip"]);
+  
   if(!$result) {
     error500(); // ❌: Internal error
   }  
 
-  answer(["token"=>$sessionId]); // ✅: Give access token
+  answer([
+    "token"=>$sessionId,
+    "expiresAt"=>$expiresAt,
+    "user"=>lodash($user, ["id","name","lastname","phone","isEmailVerified","createdAt"])
+  ]); // ✅: Give access token
 ?>
