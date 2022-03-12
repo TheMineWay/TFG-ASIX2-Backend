@@ -32,7 +32,9 @@
   
   if(!$result) {
     error500(); // ❌: Internal error
-  }  
+  }
+
+  commit();
 
   answer([
     "token"=>$sessionId,

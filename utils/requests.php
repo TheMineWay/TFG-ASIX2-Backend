@@ -32,18 +32,20 @@
   }
 
   function fetchAuthUser($post, $ip) {
-    $session = select("activeSessions", ["where"=>"id = ".sanitize($post["auth"]["session"])]) ?? null;
-    
-    if(!$session) {
+    $result = select("activeSessions", ["where"=>"id = ".sanitize($post["auth"]["session"])]);
+    $session = $result["data"][0] ?? null;
+
+    if($session == null) {
       throwHttpError('404','sess'); // ❌: Session not found
     }
 
-    if($session["ip"] != $ip) {
+    if($session["ip"] != $ip && false) {
       throwHttpError('401','sess'); // ❌: Session IP does not match
     }
 
     $uid = $session["user"];
-    $user = select("users", ["where"=>"id = \"$uid\"", "limit"=>1])[0] ?? false;
+
+    $user = select("users", ["where"=>"id = \"$uid\"", "limit"=>1])["data"][0] ?? false;
 
     return $user;
   }

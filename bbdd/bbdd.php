@@ -81,6 +81,10 @@
     ];
   }
 
+  function commit() {
+    query("COMMIT;",false);
+  }
+
   function select(string $tableName, array $opts = []) {
     $opts = optsProcessor($opts);
 
@@ -104,6 +108,7 @@
       "data"=>$result ?? [],
       "headers"=>columns($tableName),
       "pks"=>getPks($tableName),
+      "query"=>$que
     ];
   }
 
