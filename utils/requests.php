@@ -39,7 +39,7 @@
       throwHttpError('404','sess'); // ❌: Session not found
     }
 
-    if($session["ip"] != $ip && false) {
+    if($session["ip"] != $ip) {
       throwHttpError('401','sess'); // ❌: Session IP does not match
     }
 
