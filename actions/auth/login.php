@@ -1,11 +1,5 @@
 <?php
-  include('../utils/cors.php');
-  include('../bbdd/bbdd.php');
-  include('../utils/error.php');
-  include('../utils/crypto.php');
-  include('../utils/uuid.php');
-  include('../utils/requests.php');
-  include('../utils/lodash.php');
+  include('../../global.php');
 
   $request = request();
 
@@ -38,7 +32,9 @@
   
   if(!$result) {
     error500(); // ❌: Internal error
-  }  
+  }
+
+  commit();
 
   answer([
     "token"=>$sessionId,
