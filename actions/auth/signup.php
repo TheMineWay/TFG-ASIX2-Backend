@@ -8,12 +8,12 @@
     // Insert the new user
     insert('users', [[
         uuid('users'),
-        $data["name"],
-        $data["lastName"],
-        $data["email"],
-        $data["phone"],
-        doHash($data["password"]),
-        $data["login"]
+        validateLength($data["name"], ["min"=>1,"max"=>32]),
+        validateLength($data["lastName"], ["min"=>1,"max"=>32]),
+        isEmail($data["email"]),
+        isPhone($data["phone"]),
+        hashWithSalt(validateLength($data["password"], ["min"=>8,"max"=>128])),
+        validateLength($data["login"], ["min"=>6,"max"=>32])
     ]], ["id","name","lastName","email","phone","password","login"]);
 
     // Authenticate

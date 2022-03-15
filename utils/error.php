@@ -7,7 +7,13 @@
     exit;
   }
 
+  // Internal error
   function error500() {
     throwHttpError();
+  }
+
+  // Data not acceptable
+  function error406() {
+    throwHttpError("406");
   }
 ?>
