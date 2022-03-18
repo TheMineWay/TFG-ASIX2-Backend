@@ -5,6 +5,19 @@
 
     $data = $request["data"];
 
+    // Lowerize
+    $data["login"] = strtolower($data["login"]);
+    $data["email"] = strtolower($data["email"]);
+
+    // Check if there is repeated data
+    if(existsOnBBDD("users", "login", $data["login"])) {
+        throwHttpError("login-in-use", "auth");
+    }
+
+    if(existsOnBBDD("users", "email", $data["email"])) {
+        throwHttpError("email-in-use", "auth");
+    }
+
     // Insert the new user
     insert('users', [[
         uuid('users'),
