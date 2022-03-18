@@ -12,5 +12,8 @@
 
     include('bbdd/bbdd.php');
 
+    include('utils/roles.php');
+    include('utils/permissions.php');
+
     $global_loaded = true;
 ?>
