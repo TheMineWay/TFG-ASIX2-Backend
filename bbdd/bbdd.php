@@ -72,7 +72,7 @@
   function optsProcessor(array $opts) {
     return [
       "where"=>isset($opts["where"]) ? "WHERE ".$opts["where"] : "",
-      "fields"=>isset($opts["fields"]) ? implode($opts["fields"], ", ") : "*",
+      "fields"=>isset($opts["fields"]) ? implode(", ", $opts["fields"]) : "*",
       "limit"=>isset($opts["limit"]) ? "LIMIT ".$opts["limit"] : "",
       "orderBy"=>isset($opts["orderBy"]) ? "ORDER BY ".$opts["orderBy"] : "",
       "order"=>isset($opts["orderBy"]) ? (isset($opts["order"]) ? $opts["order"] : "ASC") : "",
@@ -155,5 +155,13 @@
 
   function recover($tableName, string $where) {
     query("UPDATE $tableName SET deletedAt = NULL WHERE $where;", false);
+  }
+
+  function existsOnBBDD(string $tableName, string $column, string $value) {
+    $result = select($tableName, ["fields"=>[$column]])["data"];
+    foreach($result as $row) {
+      if($row[$column] == $value) return true;
+    }
+    return false;
   }
 ?>

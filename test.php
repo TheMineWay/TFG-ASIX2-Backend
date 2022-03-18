@@ -1,3 +1,5 @@
 <?php
-    //include('global.php');
+    include('global.php');
+
+    echo  ? "Yes" : "No";
 ?>
