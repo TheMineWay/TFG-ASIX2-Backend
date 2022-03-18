@@ -14,6 +14,7 @@
 
     include('utils/roles.php');
     include('utils/permissions.php');
+    include('utils/log.php');
 
     $global_loaded = true;
 ?>
