@@ -18,6 +18,8 @@
         throwHttpError("email-in-use", "auth");
     }
 
+    doLog('register', $user["id"], $request);
+
     // Insert the new user
     insert('users', [[
         uuid('users'),
