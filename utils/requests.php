@@ -11,12 +11,23 @@
       $user = fetchAuthUser($post, $ip);
     }
 
+    $userPermissionsList = [];
+    $userRolesList = [];
+    if($user) {
+      // Fetch user roles
+      $userRolesList = fetchUserRoles($user["id"]);
+
+      // Fetch user permissions
+      $userPermissionsList = fetchUserPermissions($user["id"]);
+    }
+
     return [
       "ip"=>$ip,
       "post"=>$post,
       "data"=>$data,
       "user"=>$user ?? false,
-      "roles"=>$roles ?? []
+      "rolesList"=>$userRolesList ?? [],
+      "permissionsList"=>$userPermissionsList ?? []
     ];
   }
 
@@ -29,6 +40,20 @@
       ]
     );
     exit;
+  }
+
+  function fetchUserPermissions($uid) {
+    // uid does not need sanitization because it is provided by an internal process
+    return array_map(function($row) {
+      return $row["name"];
+    }, query("SELECT DISTINCT name FROM activeUserPermissions WHERE user = \"$uid\";"));
+  }
+
+  function fetchUserRoles($uid) {
+    // uid does not need sanitization because it is provided by an internal process
+    return array_map(function($row) {
+      return $row["name"];
+    }, query("SELECT DISTINCT name FROM activeUserRoles WHERE user = \"$uid\";"));
   }
 
   function fetchAuthUser($post, $ip) {
