@@ -4,7 +4,7 @@
 
     $ip = $server['REMOTE_ADDR'];
     $post = json_decode(file_get_contents('php://input'), true);
-    $data = $post["data"];
+    $data = $post["data"] ?? [];
 
     $user = false;
     if(isset($post["auth"])) {
