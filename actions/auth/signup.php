@@ -19,8 +19,10 @@
     }
 
     // Insert the new user
+    $userId = uuid('users');
+
     insert('users', [[
-        uuid('users'),
+        $userId,
         validateLength($data["name"], ["min"=>1,"max"=>32]),
         validateLength($data["lastName"], ["min"=>1,"max"=>32]),
         isEmail($data["email"]),
@@ -28,6 +30,8 @@
         hashWithSalt(validateLength($data["password"], ["min"=>8,"max"=>128])),
         validateLength($data["login"], ["min"=>6,"max"=>32])
     ]], ["id","name","lastName","email","phone","password","login"]);
+
+    doLog('register', $userId, $request);
 
     // Authenticate
     include('login.php');

@@ -36,6 +36,8 @@
 
   commit();
 
+  doLog('login', $user["id"], $request);
+
   answer([
     "token"=>$sessionId,
     "expiresAt"=>$expiresAt,
