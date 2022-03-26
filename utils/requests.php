@@ -26,6 +26,7 @@
       "post"=>$post,
       "data"=>$data,
       "user"=>$user ?? false,
+      "visibleUser"=>is_array($user) ? lodash($user, ["id", "name", "lastName", "email", "login", "phone"]) : false,
       "rolesList"=>$userRolesList ?? [],
       "permissionsList"=>$userPermissionsList ?? []
     ];

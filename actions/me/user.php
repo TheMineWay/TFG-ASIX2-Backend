@@ -4,7 +4,7 @@
     $request = request();
 
     answer([
-        "user"=>$request["user"],
+        "user"=>$request["visibleUser"],
         "permissions"=>$request["permissionsList"],
         "roles"=>$request["rolesList"],
     ]);
