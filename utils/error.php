@@ -16,4 +16,10 @@
   function error406() {
     throwHttpError("406");
   }
+
+  // Unauthorized error
+  function unauthorizedError() {
+    throwHttpError("403");
+  }
+  
 ?>

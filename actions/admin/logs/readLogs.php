@@ -2,7 +2,11 @@
 
     include('../../../global.php');
 
-    // TODO: check viewLogs permission
+    $request = request();
+
+    requirePermissions([
+        'viewLogs'
+    ], $request);
 
     $logs = select('logs');
 
