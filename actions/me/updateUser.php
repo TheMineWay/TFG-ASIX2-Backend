@@ -5,10 +5,22 @@
 
     requireAuth($request);
 
-    $uid = $request["user"]["id"];
+    $user = $request["user"];
+    $uid = $user["id"];
     $data = $request["data"];
 
-    // Check the email and login are unique
+    // Check if there is repeated data
+    if($user["login"] != $data["login"]) {
+        if(existsOnBBDD("users", "login", $data["login"])) {
+            throwHttpError("login-in-use", "auth");
+        }
+    }
+
+    if($user["email"] != $data["email"]) {
+        if(existsOnBBDD("users", "email", $data["email"])) {
+            throwHttpError("email-in-use", "auth");
+        }
+    }
 
     update('users', "id = '$uid'", [
         "name"=>validateLength($data["name"], ["min"=>1,"max"=>32]),
