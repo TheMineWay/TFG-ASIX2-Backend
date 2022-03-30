@@ -27,7 +27,7 @@
         validateLength($data["lastName"], ["min"=>1,"max"=>32]),
         isEmail($data["email"]),
         isPhone($data["phone"]),
-        hashWithSalt(validateLength($data["password"], ["min"=>8,"max"=>128])),
+        hashWithSalt(validatePassword($data["password"])),
         validateLength($data["login"], ["min"=>6,"max"=>32])
     ]], ["id","name","lastName","email","phone","password","login"]);
 

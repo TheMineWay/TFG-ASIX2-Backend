@@ -58,4 +58,9 @@
     if($len >= $min && $len <= $max) return $text;
     error406();
   }
+
+  function validatePassword(string $text) {
+    if(validateLength($text,["min"=>8,"max"=>128])) return $text;
+    error406();
+  }
 ?>
