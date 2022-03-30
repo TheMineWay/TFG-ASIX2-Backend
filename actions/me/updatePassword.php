@@ -17,4 +17,5 @@
     update("users", "id = '$uid'", ["password"=>$newPassword]);
 
     answer([]);
+    
 ?>
