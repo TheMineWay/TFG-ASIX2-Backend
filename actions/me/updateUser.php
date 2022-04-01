@@ -27,7 +27,8 @@
         "lastName"=>validateLength($data["lastName"], ["min"=>1,"max"=>32]),
         "phone"=>isPhone($data["phone"]),
         "email"=>isEmail($data["email"]),
-        "login"=>validateLength($data["login"], ["min"=>6,"max"=>32])
+        "login"=>validateLength($data["login"], ["min"=>6,"max"=>32]),
+        "birthdate"=>validateDate($data["birthdate"])
     ]);
 
     $request = request();

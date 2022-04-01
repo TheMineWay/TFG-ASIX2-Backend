@@ -28,8 +28,9 @@
         isEmail($data["email"]),
         isPhone($data["phone"]),
         hashWithSalt(validatePassword($data["password"])),
-        validateLength($data["login"], ["min"=>6,"max"=>32])
-    ]], ["id","name","lastName","email","phone","password","login"]);
+        validateLength($data["login"], ["min"=>6,"max"=>32]),
+        validateDate($data["birthdate"])
+    ]], ["id","name","lastName","email","phone","password","login","birthdate"]);
 
     doLog('register', $userId, $request);
 

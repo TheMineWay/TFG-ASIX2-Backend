@@ -26,7 +26,7 @@
       "post"=>$post,
       "data"=>$data,
       "user"=>$user ?? false,
-      "visibleUser"=>is_array($user) ? lodash($user, ["id", "name", "lastName", "email", "login", "phone"]) : false,
+      "visibleUser"=>is_array($user) ? getUserVisibleData($user) : false,
       "rolesList"=>$userRolesList ?? [],
       "permissionsList"=>$userPermissionsList ?? []
     ];
@@ -74,5 +74,9 @@
     $user = select("users", ["where"=>"id = \"$uid\"", "limit"=>1])["data"][0] ?? false;
 
     return $user;
+  }
+
+  function getUserVisibleData(array $user) {
+    return lodash($user, ["id", "name", "lastName", "email", "login", "phone", "birthdate"]);
   }
 ?>

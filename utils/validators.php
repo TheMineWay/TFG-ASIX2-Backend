@@ -63,4 +63,10 @@
     if(validateLength($text,["min"=>8,"max"=>128])) return $text;
     error406();
   }
+
+  function validateDate($date, array $opts = []) {
+    if(!$date) error406();
+
+    return $date;
+  }
 ?>
