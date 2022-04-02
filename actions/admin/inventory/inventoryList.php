@@ -8,7 +8,7 @@
     ], $request);
 
     $inventory = array_map(function ($inv) {
-        return lodash($inv, ["id","name","price","stock","discount","description", "deletedAt"]);
+        return lodash($inv, ["id","name","price","stock","discount","description", "deletedAt", "createdAt", "updatedAt"]);
     }, select('inventory', ["paranoid"=>false])["data"]);
 
     answer([
