@@ -5,12 +5,12 @@
     $request = request();
     $data = $request["data"];
     
-    requirePermission(['adminUsers'], $request);
-    
+    requirePermissions(['adminUsers'], $request);
+
     answer([
         "users"=>array_map(function ($user) {
-            return lodash($user["data"], ["name","lastName","email","birthdate","login"]);
-        }, select("users"));
+            return getUserVisibleData($user);
+        }, select("users", ["paranoid"=>false])["data"])
     ]);
 
 ?>
