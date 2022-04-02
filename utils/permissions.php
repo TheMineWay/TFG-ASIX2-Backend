@@ -26,4 +26,14 @@
         return true;
     }
 
+    function isAuthenticated($request) {
+        if($request["user"] == false) return false;
+        return true;
+    }
+
+    function requireAuth($request) {
+        if(isAuthenticated($request)) return true;
+        unauthorizedError();
+    }
+
 ?>

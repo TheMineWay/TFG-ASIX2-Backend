@@ -140,7 +140,7 @@
     foreach($content as $col => $value) {
       $pairs[] = "$col = $value";
     }
-    $pairs = implode($pairs, ",");
+    $pairs = implode(",", $pairs);
 
     query("UPDATE $tableName SET $pairs, updatedAt = SYSDATE() WHERE $where;", false);
   }
