@@ -72,13 +72,17 @@
   function optsProcessor(array $opts) {
     return [
       "where"=>isset($opts["where"]) ? "WHERE ".$opts["where"] : "",
-      "fields"=>isset($opts["fields"]) ? implode($opts["fields"], ", ") : "*",
+      "fields"=>isset($opts["fields"]) ? implode(", ", $opts["fields"]) : "*",
       "limit"=>isset($opts["limit"]) ? "LIMIT ".$opts["limit"] : "",
       "orderBy"=>isset($opts["orderBy"]) ? "ORDER BY ".$opts["orderBy"] : "",
       "order"=>isset($opts["orderBy"]) ? (isset($opts["order"]) ? $opts["order"] : "ASC") : "",
       "paranoid"=>isset($opts["paranoid"]) ? $opts["paranoid"] : true,
       "virtual"=>isset($opts["virtual"]) ? $opts["virtual"] : false,
     ];
+  }
+
+  function commit() {
+    query("COMMIT;",false);
   }
 
   function select(string $tableName, array $opts = []) {
@@ -104,6 +108,7 @@
       "data"=>$result ?? [],
       "headers"=>columns($tableName),
       "pks"=>getPks($tableName),
+      "query"=>$que
     ];
   }
 
@@ -135,7 +140,7 @@
     foreach($content as $col => $value) {
       $pairs[] = "$col = $value";
     }
-    $pairs = implode($pairs, ",");
+    $pairs = implode(",", $pairs);
 
     query("UPDATE $tableName SET $pairs, updatedAt = SYSDATE() WHERE $where;", false);
   }
@@ -150,5 +155,13 @@
 
   function recover($tableName, string $where) {
     query("UPDATE $tableName SET deletedAt = NULL WHERE $where;", false);
+  }
+
+  function existsOnBBDD(string $tableName, string $column, string $value) {
+    $result = select($tableName, ["fields"=>[$column]])["data"];
+    foreach($result as $row) {
+      if($row[$column] == $value) return true;
+    }
+    return false;
   }
 ?>
