@@ -10,7 +10,7 @@
     answer([
         "users"=>array_map(function ($user) {
             return getUserVisibleData($user);
-        }, select("users")["data"])
+        }, select("users", ["paranoid"=>false])["data"])
     ]);
 
 ?>
