@@ -5,7 +5,7 @@
     $request = request();
     $data = $request["data"];
     
-    requirePermissions(['adminUsers'], $request); // Maybe implement multi permissions, because not only userAdmin may want to request
+    requirePermissions(['adminUsers'], $request);
 
     $uid = sanitize($data["userId"]);
 
