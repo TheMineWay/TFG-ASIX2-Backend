@@ -33,6 +33,10 @@
   if(!$result) {
     error500(); // ❌: Internal error
   }
+  
+  if($user["isBanned"] == '1') {
+    throwHttpError("401","auth"); // ❌: Banned user
+  }
 
   commit();
 

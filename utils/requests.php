@@ -77,6 +77,6 @@
   }
 
   function getUserVisibleData(array $user) {
-    return lodash($user, ["id", "name", "lastName", "email", "login", "phone", "birthdate"]);
+    return lodash($user, ["id", "name", "lastName", "email", "login", "phone", "birthdate", "createdAt", "updatedAt", "deletedAt", "isBanned"]);
   }
 ?>

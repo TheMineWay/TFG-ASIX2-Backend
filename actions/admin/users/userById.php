@@ -7,10 +7,15 @@
     
     requirePermissions(['adminUsers'], $request);
 
+    $uid = sanitize($data["userId"]);
+
     answer([
-        "users"=>array_map(function ($user) {
+        "user"=>array_map(function ($user) {
             return getUserVisibleData($user);
-        }, select("users", ["paranoid"=>false])["data"])
+        }, select("users", [
+            "paranoid"=>false,
+            "where"=>"id = $uid"
+        ])["data"])[0] ?? null
     ]);
 
 ?>

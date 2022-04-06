@@ -9,7 +9,7 @@
     
     $uid = sanitize($data["userId"]);
     
-    update("users", "id = $uid", ["isBanned"=>'1']);
+    update("users", "id = $uid", ["isBanned"=>'0']);
     
     answer([]);
 

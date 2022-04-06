@@ -69,4 +69,19 @@
 
     return $date;
   }
+
+  function validateNumberRange($number, array $opts) {
+    $min = $opts["min"] ?? null;
+    $max = $opts["max"] ?? null;
+
+    if($min != null) {
+      if($number < $min) error406();
+    }
+
+    if($max != null) {
+      if($number > $max) error406();
+    }
+
+    return $number;
+  }
 ?>
