@@ -18,6 +18,7 @@
         "price"=>validateNumberRange($item["price"], ["min"=>0]),
         "stock"=>validateNumberRange($item["stock"], ["min"=>0]),
         "imageUrl"=>validateLength($item["imageUrl"], ["min"=>1,"max"=>511]),
+        "isDrive"=>validateBoolean($item["isDrive"])
     ];
 
     update('inventory', "id = $id", $values);
