@@ -12,7 +12,7 @@
     $values = [
         uuid('inventory'),
         validateLength($item["name"], ["min"=>2,"max"=>32]),
-        validateLength($item["description"], ["min"=>2,"max"=>255]),
+        validateLength($item["description"], ["min"=>2,"max"=>300]),
         validateLength($item["imageUrl"], ["min"=>1,"max"=>511]),
         validateNumberRange($item["discount"], ["min"=>0,"max"=>100]),
         validateNumberRange($item["price"], ["min"=>0]),
