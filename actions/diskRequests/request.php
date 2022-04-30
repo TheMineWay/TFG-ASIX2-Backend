@@ -22,7 +22,7 @@
     }
 
     // PAYMENT
-    $totalAmount = queryOne("SELECT SUM(i.price-((i.discount*i.price)/100)) as 'total' FROM inventory i WHERE i.id IN (".implode(",", $itemsIdList).");")["total"];
+    $totalAmount = queryOne("SELECT SUM(i.price-((i.discount*i.price)/100)) as 'total' FROM activeInventory i WHERE i.id IN (".implode(",", $itemsIdList).");")["total"];
     $creditCard = $payment["card"];
 
     $paymentId = uuid("payments");
