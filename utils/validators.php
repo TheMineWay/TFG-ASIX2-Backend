@@ -84,4 +84,9 @@
 
     return $number;
   }
+
+  function validateBoolean($value) {
+    if(is_bool($value)) return $value;
+    error406();
+  }
 ?>
