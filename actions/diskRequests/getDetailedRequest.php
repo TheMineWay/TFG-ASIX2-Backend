@@ -10,14 +10,18 @@
 
     $purchase = select("detailedPurchases", ["where"=>"user = '$userId'"])["data"][0];
     $purchaseId = $purchase["id"];
-    $states = select("purchaseState", ["where"=>"purchase = '$purchaseId'"])["data"];
+
+    $states = select("purchaseState", ["where"=>"purchase = '$purchaseId'", "paranoid"=>true])["data"];
+
+    $paymentId = $purchase["payment"];
+    $payment = select("payments", ["where"=>"id = '$paymentId'"])["data"][0];
 
     answer([
         "purchase"=>lodash($purchase, ["id", "user", "createdAt", "address", "state", "amount"]),
         "states"=>array_map(function ($row) {
             return lodash($row, ["id", "createdAt", "comment", "state"]);
         }, $states), // Object
-        "payment"=>[], // Object
+        "payment"=>$payment, // Object
         "builds"=>[], // Array
     ]);
 ?>
