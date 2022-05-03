@@ -36,8 +36,8 @@
             return [
                 "build"=>$row,
                 "items"=>array_map(function ($item) {
-                    return $item["id"];
-                }, select("purchaseItems", ["where"=>"build = '$buildId'", "fields"=>["id"]])["data"])
+                    return $item["item"];
+                }, select("purchaseItems", ["where"=>"build = '$buildId'", "fields"=>["item"]])["data"])
             ];
         }, $builds), // Array
     ]);
