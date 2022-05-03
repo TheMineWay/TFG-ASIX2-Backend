@@ -35,7 +35,9 @@
             $buildId = $row["id"];
             return [
                 "build"=>$row,
-                "items"=>select("purchaseItems", ["where"=>"build = '$buildId'", "fields"=>["id"]])["data"]
+                "items"=>array_map(function ($item) {
+                    return $item["id"];
+                }, select("purchaseItems", ["where"=>"build = '$buildId'", "fields"=>["id"]])["data"])
             ];
         }, $builds), // Array
     ]);
