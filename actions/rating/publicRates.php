@@ -4,6 +4,6 @@
     $request = request();
 
     answer([
-        "opinions"=>select("publicOpinions", ["fields"=>["rating","opinion","createdAt"]])["data"]
+        "opinions"=>select("publicOpinions", ["fields"=>["rating","opinion","createdAt", "isPublic"]])["data"]
     ]);
 ?>
