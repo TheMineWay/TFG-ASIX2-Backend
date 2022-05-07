@@ -8,7 +8,7 @@
     
     $opinion = validateLength($request["data"]["opinion"], ["min"=>0,"max"=>500]);
     $rating = validateNumberRange($request["data"]["score"], ["min"=>1,"max"=>5]);
-    $isPublic = $request["data"]["isPublic"];
+    $isPublic = $request["data"]["isPublic"] ?? false;
 
     $sanRating = sanitize($rating);
     $sanOpinion = sanitize($opinion);
