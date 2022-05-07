@@ -7,6 +7,6 @@
     $uid = $request["user"]["id"];
 
     answer([
-        "rate"=>select("opinions", ["where"=>"user = '$uid'"])["data"][0]
+        "rate"=>select("opinions", ["where"=>"user = '$uid'"])["data"][0] ?? false
     ]);
 ?>
