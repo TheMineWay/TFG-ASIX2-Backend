@@ -8,6 +8,8 @@
     ], $request);
 
     answer([
-        "contactForm"=>select("contactForm")["data"]
+        "contactForm"=>select("contactForm", [
+            "paranoid"=>false
+        ])["data"]
     ]);
 ?>
