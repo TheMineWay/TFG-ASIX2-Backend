@@ -9,8 +9,9 @@
         uuid("contactForm"),
         isEmail($data["email"]),
         validateLength($data["name"], ["min"=>2,"max"=>64]),
-        validateLength($data["message"], ["min"=>5,"max"=>500])
-    ]], ["id", "email", "name", "message"]);
+        validateLength($data["message"], ["min"=>5,"max"=>500]),
+        $request["ip"],
+    ]], ["id", "email", "name", "message", "ip"]);
 
     answer([]);
 ?>
