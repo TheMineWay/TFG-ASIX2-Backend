@@ -16,7 +16,7 @@
 
     if($action == "1") {
         // Adding role
-        insert("rolesAssign", [[uuid("id"), $data["roleId"], $data["user"]]], ["id","role","user"]);
+        insert("rolesAssign", [[uuid("rolesAssign"), $data["roleId"], $data["userId"]]], ["id","role","user"]);
     }
     
     answer([]);
