@@ -4,7 +4,7 @@
     $request = request();
     
     requirePermissions([
-        'adminRoles'
+        'adminUsers'
     ], $request);
 
     $roles = select("roles", ["fields"=>["id","name"]])["data"];

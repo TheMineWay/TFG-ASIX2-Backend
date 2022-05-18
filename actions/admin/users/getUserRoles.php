@@ -7,7 +7,9 @@
         'adminUsers'
     ], $request);
 
+    $roles = select("rolesAssign")["data"];
+
     answer([
-        "roles"=>select("permissions", ["fields"=>["id","name"]])["data"]
+        "assign"=>$roles
     ]);
 ?>
