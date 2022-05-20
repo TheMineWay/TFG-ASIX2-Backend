@@ -8,6 +8,6 @@
     ], $request);
 
     answer([
-        "roles"=>select("permissions", ["fields"=>["id","name"]])["data"]
+        "permissions"=>select("permissions", ["fields"=>["id","name"]])["data"]
     ]);
 ?>
