@@ -7,7 +7,7 @@
         'adminUsers'
     ], $request);
 
-    $roles = select("roles", ["fields"=>["id","name"]])["data"];
+    $roles = select("roles", ["fields"=>["id","name","superadmin"]])["data"];
 
     // View que contè els permisos amb els seus rols
     answer([
@@ -20,6 +20,7 @@
             return [
                 "id"=>$roleId,
                 "name"=>$role["name"],
+                "superadmin"=>$role["superadmin"],
                 "permissions"=>$permissions
             ];
         }, $roles)
