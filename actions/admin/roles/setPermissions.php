@@ -9,6 +9,11 @@
 
     $role = $request["data"]["role"];
     $roleId = sanitize($request["data"]["role"]);
+
+    if((select("roles", ["where"=>"id = $roleId"])["data"][0]["superadmin"] == '1') ?? false) {
+        unauthorizedError();
+    }
+
     $permissions = array_map(function ($perm) {
         return sanitize($perm);
     }, $request["data"]["permissions"]);
