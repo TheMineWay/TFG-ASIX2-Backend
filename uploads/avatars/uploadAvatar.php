@@ -12,6 +12,8 @@
         ]
     ], $request['ip']);
 
+    $uid = $user["id"];
+
     $target_dir = "/uploads/avatars";
     $target_file = $target_dir . basename($_FILES["avatar"]["name"]);
     $uploadOk = 1;
@@ -51,16 +53,7 @@
         echo "No s'ha pogut pujar el fitxer";
     // if everything is ok, try to upload file
     } else {
-        foreach(["png", "jpg", "jpeg", "gif"] as $ext) {
-            try {
-                if(file_exists($session.".".$ext)) {
-                    unlink($session.".".$ext);
-                }
-            } catch(Exception $e) {
-
-            }
-        }
-        if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $session.".".$imageFileType)) {
+        if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $uid)) {
             echo "The file ". htmlspecialchars( basename( $_FILES["avatar"]["name"])). " has been uploaded.";
         } else {
         echo "No s'ha pogut pujar el fitxer";
