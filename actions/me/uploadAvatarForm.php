@@ -28,7 +28,7 @@
         <?php
             echo "<form action='/api/uploads/avatars/uploadAvatar.php?session=$session' method='post' enctype='multipart/form-data'>
             <input type='file' name='avatar'/>
-            <input type='submit' value='submit'/>
+            <input type='submit'/>
         </form>";
         ?>
     </body>
