@@ -51,8 +51,17 @@
         echo "No s'ha pogut pujar el fitxer";
     // if everything is ok, try to upload file
     } else {
+        foreach(["png", "jpg", "jpeg", "gif"] as $ext) {
+            try {
+                if(file_exists($session.".".$ext)) {
+                    unlink($session.".".$ext);
+                }
+            } catch(Exception $e) {
+
+            }
+        }
         if (move_uploaded_file($_FILES["avatar"]["tmp_name"], $session.".".$imageFileType)) {
-        echo "The file ". htmlspecialchars( basename( $_FILES["avatar"]["name"])). " has been uploaded.";
+            echo "The file ". htmlspecialchars( basename( $_FILES["avatar"]["name"])). " has been uploaded.";
         } else {
         echo "No s'ha pogut pujar el fitxer";
         }
