@@ -34,6 +34,8 @@
 
     doLog('register', $userId, $request);
 
+    registerMail($data["email"], $data["name"]);
+
     // Authenticate
     include('login.php');
 ?>
