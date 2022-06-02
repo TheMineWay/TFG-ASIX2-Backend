@@ -1,5 +1,6 @@
 <?php
   function connect() {
+    // Server is no longer running
     return mysqli_connect('mysql-5706.dinaserver.com', 'api_user', '(AiWantAiWant%2BeeAMaxine&)', 'plugandwork');
   }
 
