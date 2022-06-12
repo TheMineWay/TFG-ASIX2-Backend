@@ -1,4 +1,6 @@
 <?php
+
+    // API keys have been changed, don't even try to use them
     function sendgridMail($sendTo, $subject, $content) {
 
         try {
@@ -37,7 +39,7 @@
                 ]
             }',
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer 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',
+                'Authorization: Bearer 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', // <-- Expired API key
                 'Content-Type: application/json'
             ),
             ));
